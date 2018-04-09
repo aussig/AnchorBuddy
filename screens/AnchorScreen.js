@@ -121,7 +121,7 @@ export default class AnchorScreen extends React.Component {
 
               <View style={styles.formRowContainer}>
                 <View style={styles.formFieldLabelContainer}>
-                  <Text style={styles.formFieldLabel}>Depth at low tide:</Text>
+                  <Text style={styles.formFieldLabel}>Low tide height:</Text>
                 </View>
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
@@ -144,7 +144,7 @@ export default class AnchorScreen extends React.Component {
 
               <View style={styles.formRowContainer}>
                 <View style={styles.formFieldLabelContainer}>
-                  <Text style={styles.formFieldLabel}>Depth at high tide:</Text>
+                  <Text style={styles.formFieldLabel}>High tide height:</Text>
                 </View>
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
@@ -167,7 +167,7 @@ export default class AnchorScreen extends React.Component {
               
               <View style={styles.formRowContainer}>
                 <View style={styles.formFieldLabelContainer}>
-                  <Text style={styles.formFieldLabel}>Current height of tide:</Text>
+                  <Text style={styles.formFieldLabel}>Current tide height:</Text>
                 </View>
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
