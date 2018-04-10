@@ -26,7 +26,10 @@ import {
   Text,
   View
 } from 'react-native';
-import { Constants } from 'expo';
+import {
+  AdMobBanner,
+  Constants
+} from 'expo';
 
 
 export default class AboutScreen extends React.Component {
@@ -38,35 +41,43 @@ export default class AboutScreen extends React.Component {
     const { manifest } = Constants;
 
     return (
-      <ScrollView style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Image
-            source={require('../assets/images/anchor.png')}
-            style={styles.headerImage}
-          />
-        </View>
+      <View style={styles.container}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          testDeviceID="EMULATOR"
+          onDidFailToReceiveAdWithError={this.bannerError}
+        />
+        <ScrollView style={styles.container}>
+          <View style={styles.headerContainer}>
+            <Image
+              source={require('../assets/images/anchor.png')}
+              style={styles.headerImage}
+            />
+          </View>
 
-        <View style={styles.versionTextContainer}  marginBottom={10}>
-          <Text>Version: {manifest.version}</Text>
-        </View>
-        <View style={styles.versionTextContainer}>
-          <Text>©2018</Text>
-          <Text>Austin Goudge and Stephen Gorst</Text>
-        </View>
+          <View style={styles.versionTextContainer}  marginBottom={10}>
+            <Text>Version: {manifest.version}</Text>
+          </View>
+          <View style={styles.versionTextContainer}>
+            <Text>©2018</Text>
+            <Text>Austin Goudge and Stephen Gorst</Text>
+          </View>
 
-        <View style={styles.introTextContainer}>
-          <Text style={styles.introText}>Sponsored By:</Text>
-        </View>
+          <View style={styles.introTextContainer}>
+            <Text style={styles.introText}>Sponsored By:</Text>
+          </View>
 
-        <View style={styles.headerContainer}>
-          <Image
-            source={require('../assets/images/nwcc.png')}
-            style={styles.nwccImage}
-          />
-          <Button title="nwcc.info" onPress={ ()=>{ Linking.openURL('http://nwcc.info')}} />
-        </View>
+          <View style={styles.headerContainer}>
+            <Image
+              source={require('../assets/images/nwcc.png')}
+              style={styles.nwccImage}
+            />
+            <Button title="nwcc.info" onPress={ ()=>{ Linking.openURL('http://nwcc.info')}} />
+          </View>
 
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }
