@@ -42,7 +42,7 @@ import * as TextInputState from 'react-native/lib/TextInputState';
 
 export default class AnchorScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: 'Anchoring',
   };
 
   state = {
@@ -81,7 +81,7 @@ export default class AnchorScreen extends React.Component {
       <View style={styles.container}>
         <AdMobBanner
           bannerSize="fullBanner"
-          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          adUnitID={Platform.OS === 'ios' ? 'ca-app-pub-5631233433203577/9620250368' : 'ca-app-pub-5631233433203577/8878014333'}
           testDeviceID="EMULATOR"
           onDidFailToReceiveAdWithError={this.bannerError}
         />
