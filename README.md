@@ -6,6 +6,8 @@ The app will calculate the depth to anchor and the scope to use.
 
 **NOT TO BE USED FOR NAVIGATION - YOU ACCEPT ALL RISKS IN USING THIS SOFTWARE**
 
+Copyright © 2018 Austin Goudge and Stephen Gorst
+
 ## Setting Up
 Install expo.io and all prerequisites by following [their instructions](https://docs.expo.io/versions/latest/introduction/installation.html).
 

@@ -1,3 +1,21 @@
+/**
+ * AnchorBuddy.  A mobile app to help with anchor calculations.
+ * Copyright (C) 2018  Austin Goudge and Stephen Gorst
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import React from 'react';
 import {
   Button,
@@ -8,18 +26,23 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   TextInput,
   TouchableOpacity,
   View,
   findNodeHandle,
 } from 'react-native';
+import {
+  AdMobBanner,
+  Constants
+} from 'expo';
 
 import * as TextInputState from 'react-native/lib/TextInputState';
 
 export default class AnchorScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: 'Anchoring',
   };
 
   state = {
@@ -33,7 +56,10 @@ export default class AnchorScreen extends React.Component {
     anchorScope: null,
     depthToAnchor: null,
     keyboardHeightStyle: {height: 10},
-    resultStyle: styles.resultContainerInvalid,
+    specifyDepth: false,
+    anchoredDepth: null,
+    anchoringDepthResultStyle: styles.resultContainerInvalid,
+    scopeResultStyle: styles.resultContainerInvalid
   };
 
   componentWillMount () {
@@ -53,6 +79,12 @@ export default class AnchorScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID={Platform.OS === 'ios' ? 'ca-app-pub-5631233433203577/9620250368' : 'ca-app-pub-5631233433203577/8878014333'}
+          testDeviceID="EMULATOR"
+          onDidFailToReceiveAdWithError={this.bannerError}
+        />
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
@@ -121,7 +153,7 @@ export default class AnchorScreen extends React.Component {
 
               <View style={styles.formRowContainer}>
                 <View style={styles.formFieldLabelContainer}>
-                  <Text style={styles.formFieldLabel}>Depth at low tide:</Text>
+                  <Text style={styles.formFieldLabel}>Low tide height:</Text>
                 </View>
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
@@ -144,7 +176,7 @@ export default class AnchorScreen extends React.Component {
 
               <View style={styles.formRowContainer}>
                 <View style={styles.formFieldLabelContainer}>
-                  <Text style={styles.formFieldLabel}>Depth at high tide:</Text>
+                  <Text style={styles.formFieldLabel}>High tide height:</Text>
                 </View>
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
@@ -167,7 +199,7 @@ export default class AnchorScreen extends React.Component {
               
               <View style={styles.formRowContainer}>
                 <View style={styles.formFieldLabelContainer}>
-                  <Text style={styles.formFieldLabel}>Current height of tide:</Text>
+                  <Text style={styles.formFieldLabel}>Current tide height:</Text>
                 </View>
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
@@ -219,8 +251,44 @@ export default class AnchorScreen extends React.Component {
                   <TextInput
                     style={styles.input}
                     onChangeText={(text) => this.setState({scopeMultiplier: Number(text)})}
-                    onSubmitEditing={() => this.focusTextInput(this._draughtInput)}
+                    onSubmitEditing={() => this.focusTextInput(this._anchoredDepthInput)}
                     ref={ref => {this._scopeMultiplierInput = ref}}
+                    placeholder="…"
+                    autoFocus={false}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType={Platform.OS === 'ios' ? "numbers-and-punctuation" : "numeric"}
+                    returnKeyType={Platform.OS === 'ios' ? "next" : "none"}
+                    blurOnSubmit={false}
+                    selectTextOnFocus={true}
+                    maxLength={4}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.formRowContainer}>
+                <View style={styles.formFieldLabelContainer}>
+                  <Text style={styles.formFieldLabel}>Specify actual anchored depth:</Text>
+                </View>
+                <View>
+                  <Switch
+                    onValueChange={(value) => this.setState({specifyDepth: value})}
+                    value={this.state.specifyDepth}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.formRowContainer}>
+                <View style={styles.formFieldLabelContainer}>
+                  <Text style={[styles.formFieldLabel, this.state.specifyDepth ? styles.labelTextEnabled : styles.labelTextDisabled]}>Actual depth:</Text>
+                </View>
+                <View style={styles.formFieldTextInputContainer}>
+                  <TextInput
+                    style={[styles.input, this.state.specifyDepth ? styles.inputEnabled : styles.inputDisabled]}
+                    onChangeText={(text) => this.setState({anchoredDepth: Number(text)})}
+                    onSubmitEditing={() => this.focusTextInput(this._draughtInput)}
+                    editable={this.state.specifyDepth}
+                    ref={ref => {this._anchoredDepthInput = ref}}
                     placeholder="…"
                     autoFocus={false}
                     autoCapitalize="none"
@@ -236,10 +304,10 @@ export default class AnchorScreen extends React.Component {
             </View>
           </View>
 
-          <View style={this.state.resultStyle}>
-            <Text style={styles.resultLabelText}>Anchoring Depth (sounder):</Text><Text style={styles.resultValueText}>{this.state.depthToAnchor}</Text>
+          <View style={this.state.anchoringDepthResultStyle}>
+            <Text style={styles.resultLabelText}>Depth to anchor (sounder):</Text><Text style={styles.resultValueText}>{this.state.depthToAnchor}</Text>
           </View>
-          <View style={this.state.resultStyle}>
+          <View style={this.state.scopeResultStyle}>
             <Text style={styles.resultLabelText}>Scope (from bow roller):</Text><Text style={styles.resultValueText}>{this.state.anchorScope}</Text>
           </View>
 
@@ -290,17 +358,27 @@ export default class AnchorScreen extends React.Component {
     let depthRequired = this.state.safetyMargin + this.state.draught;
 
     let depthToAnchor = depthRequired + depthFall;
-    let anchorScope = (depthRequired + depthFall + depthRise + this.state.topsides) * this.state.scopeMultiplier;
+    let anchorScope = this.state.specifyDepth ? 
+                      (this.state.anchoredDepth + depthRise + this.state.topsides) * this.state.scopeMultiplier :
+                      (depthRequired + depthFall + depthRise + this.state.topsides) * this.state.scopeMultiplier;
 
-    this.state.resultStyle = (this.state.draught != null) &&
-                             (this.state.topsides != null) &&
-                             (this.state.lowTide != null) &&
-                             (this.state.highTide != null) &&
-                             (this.state.currentTide != null) &&
-                             (this.state.safetyMargin != null) &&
-                             (this.state.scopeMultiplier != null) &&
-                             !isNaN(depthToAnchor) &&
-                             !isNaN(anchorScope) ? styles.resultContainerValid : styles.resultContainerInvalid;
+    let commonFieldsValid = this.state.draught != null &&
+                            this.state.topsides != null &&
+                            this.state.lowTide != null &&
+                            this.state.highTide != null &&
+                            this.state.currentTide != null &&
+                            this.state.safetyMargin != null &&
+                            this.state.scopeMultiplier != null;
+
+    this.state.anchoringDepthResultStyle = this.state.specifyDepth ? styles.resultContainerHidden : 
+                                  commonFieldsValid &&
+                                  !isNaN(depthToAnchor) &&
+                                  !isNaN(anchorScope) ? styles.resultContainerValid : styles.resultContainerInvalid;
+
+    this.state.scopeResultStyle = commonFieldsValid &&
+                                  ((this.state.specifyDepth && this.state.anchoredDepth != null && this.state.anchoredDepth >= depthToAnchor) ||
+                                  (!this.state.specifyDepth && !isNaN(depthToAnchor))) &&
+                                  !isNaN(anchorScope) ? styles.resultContainerValid : styles.resultContainerInvalid;
 
     depthToAnchor = isNaN(depthToAnchor) ? 0 : depthToAnchor;
     anchorScope = isNaN(anchorScope) ? 0 : anchorScope;
@@ -376,6 +454,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: 'green',
   },
+  resultContainerHidden: {
+    display: 'none'
+  },
   resultLabelText: {
     fontSize: 17,
     color: 'white',
@@ -395,11 +476,24 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   input: {
-    borderWidth: 1,
+    color: 'black',
     borderColor: 'gray',
+    backgroundColor: 'white',
+    borderWidth: 1,
     width: 50,
     padding: 5,
-    backgroundColor: 'white',
+  },
+  inputEnabled: {
+  },
+  inputDisabled: {
+    color: 'blue',
+    borderColor: 'darkgray',
+    backgroundColor: 'lightgray',
+  },
+  labelTextEnabled: {
+  },
+  labelTextDisabled: {
+    color: 'gray'
   },
   keyboardCompensationContainer: {
     height: 10
