@@ -33,6 +33,10 @@ import {
   View,
   findNodeHandle,
 } from 'react-native';
+import {
+  AdMobBanner,
+  Constants
+} from 'expo';
 
 import * as TextInputState from 'react-native/lib/TextInputState';
 
@@ -75,6 +79,12 @@ export default class AnchorScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          testDeviceID="EMULATOR"
+          onDidFailToReceiveAdWithError={this.bannerError}
+        />
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
