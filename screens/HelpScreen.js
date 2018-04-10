@@ -21,12 +21,16 @@ import {
   Button,
   Image,
   Linking,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
   View
 } from 'react-native';
-import { Constants } from 'expo';
+import {
+  AdMobBanner,
+  Constants
+} from 'expo';
 
 
 export default class HelpScreen extends React.Component {
@@ -39,6 +43,13 @@ export default class HelpScreen extends React.Component {
 
     return (
       <ScrollView style={styles.container}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID={Platform.OS === 'ios' ? 'ca-app-pub-5631233433203577/9620250368' : 'ca-app-pub-5631233433203577/8878014333'}
+          testDeviceID="EMULATOR"
+          onDidFailToReceiveAdWithError={this.bannerError}
+        />
+
         <View style={styles.headerContainer}>
           <Image
             source={require('../assets/images/anchor.png')}
@@ -46,11 +57,13 @@ export default class HelpScreen extends React.Component {
           />
         </View>
 
-        <View style={styles.helpTextContainer}  marginBottom={10}>
-          <Text>Version: {manifest.version}</Text>
+        <View style={styles.diagramContainer}>
+          <Image
+              source={require('../assets/images/diagram.jpg')}
+              style={styles.diagramImage}
+          />
         </View>
         
-
       </ScrollView>
     );
   }
@@ -67,11 +80,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
+  diagramContainer: {
+    alignItems: 'center',
+  },
   headerImage : {
     width: 150,
     height: 150,
     resizeMode: 'contain',
     marginTop: 3,
+  },
+  diagramImage : {
+    resizeMode: 'contain',
   },
   helpTextContainer: {
     alignItems: 'center',
