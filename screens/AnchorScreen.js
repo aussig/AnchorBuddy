@@ -394,7 +394,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   contentContainer: {
-    paddingTop: 30,
   },
   headerContainer: {
     alignItems: 'center',
