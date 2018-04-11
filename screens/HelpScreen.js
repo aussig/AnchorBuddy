@@ -50,20 +50,20 @@ export default class HelpScreen extends React.Component {
           onDidFailToReceiveAdWithError={this.bannerError}
         />
         <ScrollView style={styles.scrollContainer}>
-        <View style={styles.headerContainer}>
-          <Image
-            source={require('../assets/images/anchor.png')}
-            style={styles.headerImage}
-          />
-        </View>
+          <View style={styles.headerContainer}>
+            <Image
+              source={require('../assets/images/anchor.png')}
+              style={styles.headerImage}
+            />
+          </View>
 
-        <View style={styles.diagramContainer}>
-          <Image
+          <View style={styles.diagramContainer}>
+            <Image
               source={require('../assets/images/diagram.jpg')}
               style={styles.diagramImage}
-          />
-        </View>
-      </ScrollView>
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -72,8 +72,10 @@ export default class HelpScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  scrollContainer: {
+    flex: 1,
   },
   headerContainer: {
     alignItems: 'center',
@@ -81,16 +83,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   diagramContainer: {
-    alignItems: 'center',
+    paddingRight: 10,
   },
-  headerImage : {
+  headerImage: {
     width: 150,
     height: 150,
     resizeMode: 'contain',
     marginTop: 3,
   },
-  diagramImage : {
+  diagramImage: {
+    flex: 1,
     resizeMode: 'contain',
+    width: null,
+    height: null,
+    aspectRatio: 926/606
   },
   helpTextContainer: {
     alignItems: 'center',
