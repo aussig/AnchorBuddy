@@ -42,14 +42,14 @@ export default class HelpScreen extends React.Component {
     const { manifest } = Constants;
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <AdMobBanner
           bannerSize="fullBanner"
           adUnitID={Platform.OS === 'ios' ? 'ca-app-pub-5631233433203577/9620250368' : 'ca-app-pub-5631233433203577/8878014333'}
           testDeviceID="EMULATOR"
           onDidFailToReceiveAdWithError={this.bannerError}
         />
-
+        <ScrollView style={styles.scrollContainer}>
         <View style={styles.headerContainer}>
           <Image
             source={require('../assets/images/anchor.png')}
@@ -63,8 +63,8 @@ export default class HelpScreen extends React.Component {
               style={styles.diagramImage}
           />
         </View>
-        
       </ScrollView>
+      </View>
     );
   }
 }
