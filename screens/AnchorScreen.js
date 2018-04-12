@@ -305,7 +305,7 @@ export default class AnchorScreen extends React.Component {
           </View>
 
           <View style={this.state.anchoringDepthResultStyle}>
-            <Text style={styles.resultLabelText}>Depth to anchor (sounder):</Text><Text style={styles.resultValueText}>{this.state.depthToAnchor}</Text>
+            <Text style={styles.resultLabelText}>Minimum depth to anchor (sounder):</Text><Text style={styles.resultValueText}>{this.state.depthToAnchor}</Text>
           </View>
           <View style={this.state.scopeResultStyle}>
             <Text style={styles.resultLabelText}>Scope (from bow roller):</Text><Text style={styles.resultValueText}>{this.state.anchorScope}</Text>
