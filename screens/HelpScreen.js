@@ -60,13 +60,17 @@ export default class HelpScreen extends React.Component {
             <Text style={styles.introHeading}>Units</Text>
             <Text style={styles.introText}>No units are specified by this app - providing you use the same units for all your entries, the results will be in the same units.  i.e. If you use metres the results will be in metres, if you use feet the results will be in feet.  Don't mix your units!</Text>
             <Text style={styles.introHeading}>Fields</Text>
-            <Text style={styles.introText}>The diagram below explains the meaning of almost all the fields.  The only field not shown here is Scope Multiplier. In this field, enter the ratio of depth to rode you would like to use.  For example, in light conditions with chain you might choose to use 4:1 (enter '4' in the field), while in heavy conditions you might want much more, for example 8:1 or 10:1 (enter '8' or '10' in the field).  The multiplier is your decision and should be based on many factors including the weather, the seabed type, the nature of your boat and your experience.</Text>
+            <Text style={styles.introText}>The diagram below explains the meaning of almost all the fields - the only field not shown here is Scope Multiplier.</Text>
           </View>
           <View style={styles.diagramContainer}>
             <Image
               source={require('../assets/images/diagram.jpg')}
               style={styles.diagramImage}
             />
+          </View>
+          <View style={styles.introTextContainer}>
+            <Text style={styles.introText}>In the Scope Multiplier field, enter the ratio of depth to rode you would like to use.  For example, in light conditions with chain you might choose to use 4:1 (enter '4' in the field), while in heavy conditions you might want much more, for example 8:1 or 10:1 (enter '8' or '10' in the field).</Text>
+            <Text style={styles.introText}>The multiplier is your decision and should be based on many factors including the weather, the seabed type, the nature of your boat and your experience.</Text>
           </View>
           <View style={styles.introTextContainer}>
             <Text style={styles.introWarning}>NOT TO BE USED FOR NAVIGATION - YOU ACCEPT ALL RISKS</Text>
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   introTextContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginHorizontal: 50,
   },
   introHeading: {
@@ -100,13 +104,14 @@ const styles = StyleSheet.create({
     color: 'rgba(96,100,109, 1)',
     marginTop: 20,
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   introText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
+    marginTop: 10,
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   introWarning: {
     fontSize: 12,
