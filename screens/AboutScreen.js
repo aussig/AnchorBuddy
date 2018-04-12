@@ -76,6 +76,9 @@ export default class AboutScreen extends React.Component {
             />
             <Button title="nwcc.info" onPress={ ()=>{ Linking.openURL('http://nwcc.info')}} />
           </View>
+          <View style={styles.introTextContainer}>
+            <Text style={styles.introWarning}>NOT TO BE USED FOR NAVIGATION - YOU ACCEPT ALL RISKS</Text>
+          </View>
 
         </ScrollView>
       </View>
@@ -121,4 +124,12 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
   },
+  introWarning: {
+    fontSize: 12,
+    color: 'red',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+
 });
