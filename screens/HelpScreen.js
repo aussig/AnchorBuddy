@@ -70,7 +70,7 @@ export default class HelpScreen extends React.Component {
           </View>
           <View style={styles.introTextContainer}>
             <Text style={styles.introText}>In the Scope Multiplier field, enter the ratio of depth to rode you would like to use.  For example, in light conditions with chain you might choose to use 4:1 (enter '4' in the field), while in heavy conditions you might want much more, for example 8:1 or 10:1 (enter '8' or '10' in the field).</Text>
-            <Text style={styles.introText}>The multiplier is your decision and should be based on many factors including the weather, the seabed type, the nature of your boat and your experience.</Text>
+            <Text style={styles.introText}>The multiplier is your decision and should be based on many factors including the weather, the seabed type, the nature of your boat, your ground tackle and your experience.</Text>
           </View>
           <View style={styles.introTextContainer}>
             <Text style={styles.introWarning}>NOT TO BE USED FOR NAVIGATION - YOU ACCEPT ALL RISKS</Text>
