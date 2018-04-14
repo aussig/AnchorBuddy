@@ -33,9 +33,9 @@ import {
 } from 'expo';
 
 
-export default class AboutScreen extends React.Component {
+export default class HelpScreen extends React.Component {
   static navigationOptions = {
-    title: 'About',
+    title: 'Help',
   };
 
   render() {
@@ -49,37 +49,32 @@ export default class AboutScreen extends React.Component {
           testDeviceID="EMULATOR"
           onDidFailToReceiveAdWithError={this.bannerError}
         />
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.scrollContainer}>
           <View style={styles.headerContainer}>
             <Image
               source={require('../assets/images/anchor.png')}
               style={styles.headerImage}
             />
           </View>
-
-          <View style={styles.versionTextContainer}  marginBottom={10}>
-            <Text>Version: {manifest.version}</Text>
-          </View>
-          <View style={styles.versionTextContainer}>
-            <Text>©2018</Text>
-            <Text>Austin Goudge and Stephen Gorst</Text>
-          </View>
-
           <View style={styles.introTextContainer}>
-            <Text style={styles.introText}>Sponsored By:</Text>
+            <Text style={styles.introHeading}>Units</Text>
+            <Text style={styles.introText}>No units are specified by this app - providing you use the same units for all your entries, the results will be in the same units.  i.e. If you use metres the results will be in metres, if you use feet the results will be in feet.  Don't mix your units!</Text>
+            <Text style={styles.introHeading}>Fields</Text>
+            <Text style={styles.introText}>The diagram below explains the meaning of almost all the fields - the only field not shown here is Scope Multiplier.</Text>
           </View>
-
-          <View style={styles.headerContainer}>
+          <View style={styles.diagramContainer}>
             <Image
-              source={require('../assets/images/nwcc.png')}
-              style={styles.nwccImage}
+              source={require('../assets/images/diagram.jpg')}
+              style={styles.diagramImage}
             />
-            <Button title="nwcc.info" onPress={ ()=>{ Linking.openURL('http://nwcc.info')}} />
+          </View>
+          <View style={styles.introTextContainer}>
+            <Text style={styles.introText}>In the Scope Multiplier field, enter the ratio of depth to rode you would like to use.  For example, in light conditions with chain you might choose to use 4:1 (enter '4' in the field), while in heavy conditions you might want much more, for example 8:1 or 10:1 (enter '8' or '10' in the field).</Text>
+            <Text style={styles.introText}>The multiplier is your decision and should be based on many factors including the weather, the seabed type, the nature of your boat, your ground tackle and your experience.</Text>
           </View>
           <View style={styles.introTextContainer}>
             <Text style={styles.introWarning}>NOT TO BE USED FOR NAVIGATION - YOU ACCEPT ALL RISKS</Text>
           </View>
-
         </ScrollView>
       </View>
     );
@@ -91,38 +86,32 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  scrollContainer: {
+    flex: 1,
+  },
   headerContainer: {
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 10,
   },
-  headerImage : {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
-    marginTop: 3,
-  },
-  nwccImage : {
-    width: 250,
-    height: 70,
-    resizeMode: 'contain',
-    marginTop: 10,
-    marginBottom: 0,
-  },
-  versionTextContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-    marginBottom: 50,
-  },
   introTextContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginHorizontal: 50,
+  },
+  introHeading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'rgba(96,100,109, 1)',
+    marginTop: 20,
+    lineHeight: 24,
+    textAlign: 'left',
   },
   introText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
+    marginTop: 10,
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   introWarning: {
     fontSize: 12,
@@ -131,5 +120,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
   },
-
+  diagramContainer: {
+    paddingRight: 20,
+  },
+  headerImage: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+    marginTop: 3,
+  },
+  diagramImage: {
+    flex: 1,
+    resizeMode: 'contain',
+    width: null,
+    height: null,
+    aspectRatio: 926/606
+  },
+  helpTextContainer: {
+    alignItems: 'center',
+    marginHorizontal: 50,
+    marginBottom: 50,
+  },
 });

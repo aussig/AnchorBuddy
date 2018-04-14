@@ -24,12 +24,16 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
 
 import AnchorScreen from '../screens/AnchorScreen';
+import HelpScreen from '../screens/HelpScreen';
 import AboutScreen from '../screens/AboutScreen';
 
 export default TabNavigator(
   {
     Anchor: {
       screen: AnchorScreen,
+    },
+    Help: {
+      screen: HelpScreen,
     },
     About: {
       screen: AboutScreen,
@@ -46,6 +50,12 @@ export default TabNavigator(
               Platform.OS === 'ios'
                 ? `ios-boat${focused ? '' : '-outline'}`
                 : 'md-boat';
+            break;
+          case 'Help':
+            iconName =
+              Platform.OS === 'ios'
+                ? `ios-help-circle${focused ? '' : '-outline'}`
+                : 'md-help-circle';
             break;
           case 'About':
             iconName =

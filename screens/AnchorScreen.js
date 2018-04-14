@@ -18,6 +18,7 @@
 
 import React from 'react';
 import {
+  AsyncStorage,
   Button,
   Dimensions,
   Image,
@@ -45,7 +46,7 @@ export default class AnchorScreen extends React.Component {
     title: 'Anchoring',
   };
 
-  state = {
+   state = {
     draught: null,
     topsides: null,
     lowTide: null,
@@ -70,6 +71,27 @@ export default class AnchorScreen extends React.Component {
   componentWillUnmount () {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
+  }
+
+  componentDidMount = () => {
+    AsyncStorage.getItem('draught').then((value) => this.setState({ 'draught': Number(value) }));
+    AsyncStorage.getItem('topsides').then((value) => this.setState({ 'topsides': Number(value) }));
+    AsyncStorage.getItem('safetyMargin').then((value) => this.setState({ 'safetyMargin': Number(value) }));
+  }
+
+  storeDraught = (value) => {
+    AsyncStorage.setItem('draught', value);
+    this.setState({'draught': Number(value)});
+  }
+
+  storeTopsides = (value) => {
+    AsyncStorage.setItem('topsides', value);
+    this.setState({'topsides': Number(value)});
+  }
+
+  storeSafetyMargin = (value) => {
+    AsyncStorage.setItem('safetyMargin', value);
+    this.setState({'safetyMargin': Number(value)});
   }
 
   render() {
@@ -111,7 +133,8 @@ export default class AnchorScreen extends React.Component {
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
                     style={styles.input}
-                    onChangeText={(text) => this.setState({draught: Number(text)})}
+                    defaultValue={this.state.draught != null ? this.state.draught.toString() : ''}
+                    onChangeText={(text) => this.storeDraught(text)}
                     onSubmitEditing={() => this.focusTextInput(this._topsidesInput)}
                     ref={ref => {this._draughtInput = ref}}
                     placeholder="…"
@@ -135,7 +158,8 @@ export default class AnchorScreen extends React.Component {
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
                     style={styles.input}
-                    onChangeText={(text) => this.setState({topsides: Number(text)})}
+                    defaultValue={this.state.topsides != null ? this.state.topsides.toString() : ''}
+                    onChangeText={(text) => this.storeTopsides(text)}
                     onSubmitEditing={() => this.focusTextInput(this._lowTideInput)}
                     ref={ref => {this._topsidesInput = ref}}
                     placeholder="…"
@@ -227,8 +251,9 @@ export default class AnchorScreen extends React.Component {
                 <View style={styles.formFieldTextInputContainer}>
                   <TextInput
                     style={styles.input}
-                    onChangeText={(text) => this.setState({safetyMargin: Number(text)})}
+                    onChangeText={(text) => this.storeSafetyMargin(text)}
                     onSubmitEditing={() => this.focusTextInput(this._scopeMultiplierInput)}
+                    defaultValue={this.state.safetyMargin != null ? this.state.safetyMargin.toString() : ''}
                     ref={ref => {this._safetyMarginInput = ref}}
                     placeholder="…"
                     autoFocus={false}
@@ -305,7 +330,7 @@ export default class AnchorScreen extends React.Component {
           </View>
 
           <View style={this.state.anchoringDepthResultStyle}>
-            <Text style={styles.resultLabelText}>Depth to anchor (sounder):</Text><Text style={styles.resultValueText}>{this.state.depthToAnchor}</Text>
+            <Text style={styles.resultLabelText}>Minimum depth to anchor (sounder):</Text><Text style={styles.resultValueText}>{this.state.depthToAnchor}</Text>
           </View>
           <View style={this.state.scopeResultStyle}>
             <Text style={styles.resultLabelText}>Scope (from bow roller):</Text><Text style={styles.resultValueText}>{this.state.anchorScope}</Text>
@@ -394,7 +419,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   contentContainer: {
-    paddingTop: 30,
   },
   headerContainer: {
     alignItems: 'center',
