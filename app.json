@@ -22,11 +22,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.aussi.anchorbuddy",
-      "buildNumber": "2"
+      "buildNumber": "1"
     },
     "android": {
       "package": "com.aussi.anchorbuddy",
-      "permissions": []
+      "permissions": [],
+      "versionCode": 2
     }
   }
 }
