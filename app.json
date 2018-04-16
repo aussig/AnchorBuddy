@@ -27,7 +27,7 @@
     "android": {
       "package": "com.aussi.anchorbuddy",
       "permissions": [],
-      "versionCode": 2
+      "versionCode": 3
     }
   }
 }

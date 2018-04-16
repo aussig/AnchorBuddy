@@ -1,5 +1,9 @@
 # Version History
 
+## 1.1.1
+
+* Moved safety margin field up the page so all three fields relating to the boat are together.
+
 ## 1.1.0
 
 * Added help screen describing how to use the app, with a diagram.
