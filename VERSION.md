@@ -3,6 +3,8 @@
 ## 1.1.1
 
 * Moved safety margin field up the page so all three fields relating to the boat are together.
+* Improved help to include instructions on how to use 'Actual anchored depth'.
+* Improved help to include section on soundings.
 
 ## 1.1.0
 
