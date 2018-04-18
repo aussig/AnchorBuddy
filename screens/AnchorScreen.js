@@ -160,8 +160,32 @@ export default class AnchorScreen extends React.Component {
                     style={styles.input}
                     defaultValue={this.state.topsides != null ? this.state.topsides.toString() : ''}
                     onChangeText={(text) => this.storeTopsides(text)}
-                    onSubmitEditing={() => this.focusTextInput(this._lowTideInput)}
+                    onSubmitEditing={() => this.focusTextInput(this._safetyMarginInput)}
                     ref={ref => {this._topsidesInput = ref}}
+                    placeholder="…"
+                    autoFocus={false}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType={Platform.OS === 'ios' ? "numbers-and-punctuation" : "numeric"}
+                    returnKeyType={Platform.OS === 'ios' ? "next" : "none"}
+                    blurOnSubmit={false}
+                    selectTextOnFocus={true}
+                    maxLength={4}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.formRowContainer}>
+                <View style={styles.formFieldLabelContainer}>
+                  <Text style={styles.formFieldLabel}>Safety margin:</Text>
+                </View>
+                <View style={styles.formFieldTextInputContainer}>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => this.storeSafetyMargin(text)}
+                    onSubmitEditing={() => this.focusTextInput(this._lowTideInput)}
+                    defaultValue={this.state.safetyMargin != null ? this.state.safetyMargin.toString() : ''}
+                    ref={ref => {this._safetyMarginInput = ref}}
                     placeholder="…"
                     autoFocus={false}
                     autoCapitalize="none"
@@ -229,32 +253,8 @@ export default class AnchorScreen extends React.Component {
                   <TextInput
                     style={styles.input}
                     onChangeText={(text) => this.setState({currentTide: Number(text)})}
-                    onSubmitEditing={() => this.focusTextInput(this._safetyMarginInput)}
-                    ref={ref => {this._currentTideInput = ref}}
-                    placeholder="…"
-                    autoFocus={false}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    keyboardType={Platform.OS === 'ios' ? "numbers-and-punctuation" : "numeric"}
-                    returnKeyType={Platform.OS === 'ios' ? "next" : "none"}
-                    blurOnSubmit={false}
-                    selectTextOnFocus={true}
-                    maxLength={4}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.formRowContainer}>
-                <View style={styles.formFieldLabelContainer}>
-                  <Text style={styles.formFieldLabel}>Safety margin:</Text>
-                </View>
-                <View style={styles.formFieldTextInputContainer}>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => this.storeSafetyMargin(text)}
                     onSubmitEditing={() => this.focusTextInput(this._scopeMultiplierInput)}
-                    defaultValue={this.state.safetyMargin != null ? this.state.safetyMargin.toString() : ''}
-                    ref={ref => {this._safetyMarginInput = ref}}
+                    ref={ref => {this._currentTideInput = ref}}
                     placeholder="…"
                     autoFocus={false}
                     autoCapitalize="none"
