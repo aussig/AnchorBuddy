@@ -60,7 +60,7 @@ export default class HelpScreen extends React.Component {
             <Text style={styles.introHeading}>Units</Text>
             <Text style={styles.introText}>No units are specified by this app - providing you use the same units for all your entries, the results will be in the same units.  i.e. If you use metres the results will be in metres, if you use feet the results will be in feet.  Don't mix your units!</Text>
             <Text style={styles.introHeading}>Fields</Text>
-            <Text style={styles.introText}>The diagram below explains the meaning of almost all the fields - the only field not shown here is Scope Multiplier.</Text>
+            <Text style={styles.introText}>The diagram below explains the meaning of almost all the fields - the only fields not shown here are <Text style={{fontStyle: 'italic'}}>Scope Multiplier</Text> and <Text style={{fontStyle: 'italic'}}>Actual Anchored Depth</Text>.</Text>
           </View>
           <View style={styles.diagramContainer}>
             <Image
@@ -69,8 +69,11 @@ export default class HelpScreen extends React.Component {
             />
           </View>
           <View style={styles.introTextContainer}>
-            <Text style={styles.introText}>In the Scope Multiplier field, enter the ratio of depth to rode you would like to use.  For example, in light conditions with chain you might choose to use 4:1 (enter '4' in the field), while in heavy conditions you might want much more, for example 8:1 or 10:1 (enter '8' or '10' in the field).</Text>
+            <Text style={styles.introHeading2}>Scope Multiplier</Text>
+            <Text style={styles.introText}>In the <Text style={{fontStyle: 'italic'}}>Scope Multiplier</Text> field, enter the ratio of depth to rode you would like to use.  For example, in light conditions with chain you might choose to use 4:1 (enter '4' in the field), while in heavy conditions you might want much more, for example 8:1 or 10:1 (enter '8' or '10' in the field).</Text>
             <Text style={styles.introText}>The multiplier is your decision and should be based on many factors including the weather, the seabed type, the nature of your boat, your ground tackle and your experience.</Text>
+            <Text style={styles.introHeading2}>Actual Anchored Depth</Text>
+            <Text style={styles.introText}>When anchoring, it's normal not to anchor at the exact depth you were planning, due to seabed irregularities, nearby anchored boats or other factors.  Once you have anchored, you can check the scope you need for the precise depth you are anchored in.  To do this, flick the <Text style={{fontStyle: 'italic'}}>Specify actual anchored depth</Text> toggle on and then enter the <Text style={{fontStyle: 'italic'}}>Actual Depth</Text> you are anchored in.  AnchorBuddy will then tell you the scope you need.</Text>
           </View>
           <View style={styles.introTextContainer}>
             <Text style={styles.introWarning}>NOT TO BE USED FOR NAVIGATION - YOU ACCEPT ALL RISKS</Text>
@@ -106,6 +109,14 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'left',
   },
+  introHeading2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'rgba(96,100,109, 1)',
+    marginTop: 15,
+    lineHeight: 24,
+    textAlign: 'left',
+  },
   introText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
@@ -119,6 +130,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     marginTop: 10,
+    marginBottom: 10,
   },
   diagramContainer: {
     paddingRight: 20,
