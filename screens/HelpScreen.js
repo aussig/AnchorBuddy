@@ -62,7 +62,7 @@ export default class HelpScreen extends React.Component {
             <Text style={styles.introHeading}>Soundings</Text>
             <Text style={styles.introText}>It is assumed that your depth sounder is calibrated to show depth from the surface, <Text style={{fontWeight: 'bold'}}>not</Text> depth below the keel.  If you insist on using depth below the keel, you will need to account for this in either the draught or safety margin fields, otherwise the scope will be too short.</Text> 
             <Text style={styles.introHeading}>Fields</Text>
-            <Text style={styles.introText}>The diagram below explains the meaning of almost all the fields - the only fields not shown here are <Text style={{fontStyle: 'italic'}}>Scope multiplier</Text> and <Text style={{fontStyle: 'italic'}}>Actual anchored depth</Text>.</Text>
+            <Text style={styles.introText}>The diagram below explains the meaning of most fields - the only fields not shown here are <Text style={{fontStyle: 'italic'}}>Scope multiplier</Text> and <Text style={{fontStyle: 'italic'}}>Actual anchored depth</Text>.</Text>
           </View>
           <View style={styles.diagramContainer}>
             <Image
