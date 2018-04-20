@@ -18,14 +18,12 @@
 
 import React from 'react';
 import {
-  AlertIOS,
   Button,
   Image,
   Linking,
   Platform,
   ScrollView,
   StyleSheet,
-  TouchableHighlight,
   Text,
   View
 } from 'react-native';
@@ -34,18 +32,49 @@ import {
   Constants
 } from 'expo';
 
+const SocketEndpoint = 'http://localhost:3000/signalk/v1/stream?subscribe=none';
 
 export default class SignalkScreen extends React.Component {
   static navigationOptions = {
     title: 'SignalK',
   };
 
-  state = {signalKDepth: 0}
+  state = {
+    signalKDepth: "connecting…",
+    ws: null
+  }
 
   componentDidMount() {
-    setInterval(() => {
-      this._fetchSignalKDepth()
-    }, 1000)
+    const ws = new WebSocket(SocketEndpoint)
+
+    ws.onopen = () => {
+      this.setState({signalKDepth: "initialising…"})
+      ws.send('{ \
+        "context": "vessels.self", \
+        "subscribe": [{ \
+          "path": "environment.depth.belowTransducer", \
+          "period": 1000, \
+          "format": "delta", \
+          "policy": "ideal", \
+          "minPeriod": 200 \
+        }] \
+      }')
+    }
+
+    ws.onmessage = (event) => {
+      try {
+        let json = JSON.parse(event.data)
+        this.setState({signalKDepth: json.updates[0].values[0].value})
+      } catch (ex) {
+        this.setState({signalKDepth: "invalid data"})
+      } 
+    }
+
+    ws.onerror = (error) => {
+      this.setState({signalKDepth: "error"})
+    }
+
+    this.setState({ws: {ws}})
   }
 
   render() {
@@ -74,17 +103,6 @@ export default class SignalkScreen extends React.Component {
         </ScrollView>
       </View>
     );
-  }
-
-  _fetchSignalKDepth = () => {
-    fetch("http://localhost:3000/signalk/v1/api/", {method: "GET"})
-    .then((response) => response.json())
-    .then((responseData) => {
-        this.setState({signalKDepth: responseData.vessels[responseData.self.split('.')[1]].environment.depth.belowTransducer.value})
-    })
-    .catch((error) => {
-      console.error(error);
-    });
   }
 }
 
