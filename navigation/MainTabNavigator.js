@@ -25,6 +25,7 @@ import Colors from '../constants/Colors';
 
 import AnchorScreen from '../screens/AnchorScreen';
 import HelpScreen from '../screens/HelpScreen';
+import SignalkScreen from '../screens/SignalkScreen';
 import AboutScreen from '../screens/AboutScreen';
 
 export default TabNavigator(
@@ -34,6 +35,9 @@ export default TabNavigator(
     },
     Help: {
       screen: HelpScreen,
+    },
+    SignalK: {
+      screen: SignalkScreen,
     },
     About: {
       screen: AboutScreen,
@@ -52,6 +56,12 @@ export default TabNavigator(
                 : 'md-boat';
             break;
           case 'Help':
+            iconName =
+              Platform.OS === 'ios'
+                ? `ios-help-circle${focused ? '' : '-outline'}`
+                : 'md-help-circle';
+            break;
+          case 'SignalK':
             iconName =
               Platform.OS === 'ios'
                 ? `ios-help-circle${focused ? '' : '-outline'}`
