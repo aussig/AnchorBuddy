@@ -18,6 +18,7 @@
 
 import React from 'react';
 import {
+  AsyncStorage,
   Button,
   Image,
   Linking,
@@ -25,6 +26,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View
 } from 'react-native';
 import {
@@ -37,6 +39,20 @@ export default class AboutScreen extends React.Component {
   static navigationOptions = {
     title: 'About',
   };
+
+  state = {
+    signalKServer: 'http://127.0.0.1:3000'
+  };
+
+  componentDidMount = () => {
+    AsyncStorage.getItem('signalKServer').then((value) => value && this.setState({ 'signalKServer': value }));
+  }
+
+  storeSignalKServer = (value) => {
+    AsyncStorage.setItem('signalKServer', value);
+    this.setState({'signalKServer': value});
+  }
+
 
   render() {
     const { manifest } = Constants;
@@ -54,6 +70,25 @@ export default class AboutScreen extends React.Component {
             <Image
               source={require('../assets/images/anchor.png')}
               style={styles.headerImage}
+            />
+          </View>
+
+          <View style={styles.introTextContainer}>
+            <Text>SignalK Server: </Text>
+            <TextInput
+              style={styles.input}
+              defaultValue={this.state.signalKServer}
+              onChangeText={(text) => this.storeSignalKServer(text)}
+              ref={ref => {this._signalKServerInput = ref}}
+              placeholder="http://127.0.0.1:3000"
+              autoFocus={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType={"default"}
+              returnKeyType={"done"}
+              blurOnSubmit={false}
+              selectTextOnFocus={true}
+              maxLength={25}
             />
           </View>
 

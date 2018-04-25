@@ -18,6 +18,7 @@
 
 import React from 'react';
 import {
+  AsyncStorage,
   Button,
   Image,
   Linking,
@@ -32,20 +33,31 @@ import {
   Constants
 } from 'expo';
 
-const SocketEndpoint = 'http://localhost:3000/signalk/v1/stream?subscribe=none';
-
 export default class SignalkScreen extends React.Component {
   static navigationOptions = {
     title: 'SignalK',
   };
 
   state = {
+    signalKServer: 'http://127.0.0.1:3000',
     signalKDepth: "connecting…",
     ws: null
   }
 
   componentDidMount() {
-    const ws = new WebSocket(SocketEndpoint)
+    this._initiateSignalK()
+  }
+
+  componentDidUpdate() {
+    this._initiateSignalK()
+  }
+
+  _initiateSignalK = () => {
+    if (this.state.ws) this.state.ws.close();
+
+    AsyncStorage.getItem('signalKServer').then((value) => value && this.setState({ 'signalKServer': value }));
+
+    const ws = new WebSocket(this.state.signalKServer + '/signalk/v1/stream?subscribe=none')
 
     ws.onopen = () => {
       this.setState({signalKDepth: "initialising…"})
