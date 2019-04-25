@@ -1,5 +1,9 @@
 # Version History
 
+## 1.1.2
+
+* Built with latest SDK, removing dependency on branch.io
+
 ## 1.1.1
 
 * Moved safety margin field up the page so all three fields relating to the boat are together.
