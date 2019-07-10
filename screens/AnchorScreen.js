@@ -34,10 +34,8 @@ import {
   View,
   findNodeHandle,
 } from 'react-native';
-import {
-  AdMobBanner,
-  Constants
-} from 'expo';
+import Constants from 'expo-constants';
+import { AdMobBanner } from 'expo-ads-admob';
 
 import * as TextInputState from 'react-native/lib/TextInputState';
 

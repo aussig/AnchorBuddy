@@ -27,10 +27,8 @@ import {
   Text,
   View
 } from 'react-native';
-import {
-  AdMobBanner,
-  Constants
-} from 'expo';
+import Constants from 'expo-constants';
+import { AdMobBanner } from 'expo-ads-admob';
 
 
 export default class AboutScreen extends React.Component {
