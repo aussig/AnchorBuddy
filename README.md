@@ -25,7 +25,7 @@ To run the project in expo.io:
 $ expo start
 ```
 
-Running in emulators can be done via the browser UI that is automatically launched by `expo start`.
+Running in emulators can be done via the browser UI that is automatically launched by `expo start`. Genymotion is required for Android.
 
 
 ## Publishing new version via Expo
@@ -37,5 +37,5 @@ Can be done via the UI launched with `expo start`.
 
 ```sh
 $ expo build:ios
-$ expo build:android
+$ expo build:android -t app-bundle
 ```
