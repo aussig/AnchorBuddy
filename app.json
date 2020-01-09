@@ -4,7 +4,7 @@
     "description": "An app to help out when anchoring.",
     "slug": "anchorbuddy",
     "privacy": "public",
-    "sdkVersion": "33.0.0",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android"

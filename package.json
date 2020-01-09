@@ -9,12 +9,13 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
-    "expo": "^33.0.0",
+    "expo": "^34.0.0",
     "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "react-navigation": "^1.6.1"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.2.tar.gz",
+    "react-navigation": "^1.6.1",
+    "expo-ads-admob": "~6.0.0"
   },
   "devDependencies": {
-    "jest-expo": "^26.0.0"
+    "jest-expo": "^34.0.0"
   }
 }
