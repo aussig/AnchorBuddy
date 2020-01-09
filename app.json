@@ -30,7 +30,8 @@
     "android": {
       "package": "com.aussi.anchorbuddy",
       "permissions": [],
-      "versionCode": 3
-    }
+      "versionCode": 4
+    },
+    "githubUrl": "https://github.com/aussig/AnchorBuddy"
   }
 }
