@@ -1,8 +1,13 @@
 # Version History
 
+## 1.1.3
+
+* Rebuilt with latest SDK.
+* Built 64 bit version on Android.
+
 ## 1.1.2
 
-* Built with latest SDK, removing dependency on branch.io
+* Rebuilt with latest SDK, removing dependency on branch.io.
 
 ## 1.1.1
 

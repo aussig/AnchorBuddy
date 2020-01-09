@@ -1,17 +1,17 @@
 /**
  * AnchorBuddy.  A mobile app to help with anchor calculations.
  * Copyright (C) 2018  Austin Goudge and Stephen Gorst
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,16 +30,13 @@ import {
   Switch,
   Text,
   TextInput,
+  TextInputState,
   TouchableOpacity,
   View,
   findNodeHandle,
 } from 'react-native';
-import {
-  AdMobBanner,
-  Constants
-} from 'expo';
-
-import * as TextInputState from 'react-native/lib/TextInputState';
+import Constants from 'expo-constants';
+import { AdMobBanner } from 'expo-ads-admob';
 
 export default class AnchorScreen extends React.Component {
   static navigationOptions = {
@@ -63,17 +60,14 @@ export default class AnchorScreen extends React.Component {
     scopeResultStyle: styles.resultContainerInvalid
   };
 
-  componentWillMount () {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-  }
-
   componentWillUnmount () {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
 
   componentDidMount = () => {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     AsyncStorage.getItem('draught').then((value) => this.setState({ 'draught': Number(value) }));
     AsyncStorage.getItem('topsides').then((value) => this.setState({ 'topsides': Number(value) }));
     AsyncStorage.getItem('safetyMargin').then((value) => this.setState({ 'safetyMargin': Number(value) }));
@@ -244,7 +238,7 @@ export default class AnchorScreen extends React.Component {
                   />
                 </View>
               </View>
-              
+
               <View style={styles.formRowContainer}>
                 <View style={styles.formFieldLabelContainer}>
                   <Text style={styles.formFieldLabel}>Current tide height:</Text>
@@ -383,7 +377,7 @@ export default class AnchorScreen extends React.Component {
     let depthRequired = this.state.safetyMargin + this.state.draught;
 
     let depthToAnchor = depthRequired + depthFall;
-    let anchorScope = this.state.specifyDepth ? 
+    let anchorScope = this.state.specifyDepth ?
                       (this.state.anchoredDepth + depthRise + this.state.topsides) * this.state.scopeMultiplier :
                       (depthRequired + depthFall + depthRise + this.state.topsides) * this.state.scopeMultiplier;
 
@@ -395,7 +389,7 @@ export default class AnchorScreen extends React.Component {
                             this.state.safetyMargin != null &&
                             this.state.scopeMultiplier != null;
 
-    this.state.anchoringDepthResultStyle = this.state.specifyDepth ? styles.resultContainerHidden : 
+    this.state.anchoringDepthResultStyle = this.state.specifyDepth ? styles.resultContainerHidden :
                                   commonFieldsValid &&
                                   !isNaN(depthToAnchor) &&
                                   !isNaN(anchorScope) ? styles.resultContainerValid : styles.resultContainerInvalid;
